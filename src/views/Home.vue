@@ -2,14 +2,22 @@
   <Container>
     <h1 class="mb-3">Starter dapp</h1>
     <div>
-      <UiButton @click="onSubmit" :loading="loading">
-        Send transaction
-      </UiButton>
+      <div class="mb-4">
+        <div class="mb-4">
+          <h3>Network</h3>
+          <p>{{ web3.network.name }}</p>
+        </div>
+        <h3>Send transaction</h3>
+        <UiButton @click="onSubmit" :loading="loading">
+          Submit
+        </UiButton>
+      </div>
     </div>
   </Container>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import { sendTransaction } from '@snapshot-labs/snapshot.js/src/utils';
 import abi from '@/helpers/abi';
 
@@ -22,6 +30,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['notify']),
     async onSubmit() {
       this.loading = true;
       try {
